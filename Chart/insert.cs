@@ -64,12 +64,25 @@ namespace Chart
             SqlConnection con = new SqlConnection(@"Data Source=HANA;Initial Catalog=ParseSQL;Integrated Security=True");
             string query = GetInsertQuery();
             insertInd insertInd = new insertInd();
-            List<indusrtyChart> data = insertInd.GetData(take).Result;
-            
-            foreach (var item in data)
+            try
             {
-                await InsertDataAsync(con, query, item);            
+                List<indusrtyChart> data = insertInd.GetData(take).Result;
+                foreach (var item in data)
+                {
+                    await InsertDataAsync(con, query, item);
+                }
             }
+            catch(Exception)
+            {
+                Console.WriteLine("");
+            }
+            finally
+            {
+                Console.WriteLine("Data Inserted!");
+            }
+            
+            
+            
             /*
                string insertNameQuery = "INSERT INTO Industries (name) SELECT [Name] FROM siteAttrebute";
                using (SqlCommand cmd = new SqlCommand(insertNameQuery, con))
@@ -104,9 +117,19 @@ namespace Chart
             SqlConnection con = new SqlConnection(@"Data Source=HANA;Initial Catalog=ParseSQL;Integrated Security=True");
             string query = GetInsertQuery();
             insertMix insertMix = new insertMix();
-            MixChart data = insertMix.GetData(take).Result;
-            
-            await InsertDataAsync(con, query, data);
+            try
+            {
+                MixChart data = insertMix.GetData(take).Result;
+                await InsertDataAsync(con, query, data);
+            }
+            catch(Exception)
+            {
+                Console.WriteLine("");
+            }
+            finally
+            {
+                Console.WriteLine("Data Inserted!");
+            }
 
         }
     }
@@ -132,13 +155,25 @@ namespace Chart
             SqlConnection con = new SqlConnection(@"Data Source=HANA;Initial Catalog=ParseSQL;Integrated Security=True");
             string query = GetInsertQuery();
             insertNAV insertNAV = new insertNAV();
-            List<NAVchart> data = insertNAV.GetData(take).Result;
-
-            foreach (var item in data)
+            try
             {
-                await InsertDataAsync(con, query, item);
+                List<NAVchart> data = insertNAV.GetData(take).Result;
+
+                foreach (var item in data)
+                {
+                    await InsertDataAsync(con, query, item);
+                }
             }
-            
+            catch(Exception)
+            {
+                Console.WriteLine("");
+            }
+            finally
+            {
+                Console.WriteLine("Data Inserted!");
+            }
+
+
         }
     }
 
@@ -162,13 +197,25 @@ namespace Chart
             SqlConnection con = new SqlConnection(@"Data Source=HANA;Initial Catalog=ParseSQL;Integrated Security=True");
             string query = GetInsertQuery();
             insertPure insertPure = new insertPure();
-            List<PureChart> data = insertPure.GetData(take).Result;           
-
-            foreach (var item in data)
+            try
             {
-               await InsertDataAsync(con, query, item);
+                List<PureChart> data = insertPure.GetData(take).Result;
+
+                foreach (var item in data)
+                {
+                    await InsertDataAsync(con, query, item);
+                }
             }
-            
+            catch(Exception)
+            {
+                Console.WriteLine("");
+            }
+            finally
+            {
+                Console.WriteLine("Data Inserted!");
+            }
+
+
         }
     }
 

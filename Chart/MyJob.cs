@@ -26,25 +26,25 @@ namespace Chart
                 {
                     insertPure insertPure = new insertPure();
                     insertPure.InsertSql(take);
-                    Console.WriteLine("Data Inserted!");
+                    //Console.WriteLine("Data Inserted!");
                 }
                 else if (cho == 2)
                 {
                     insertMix insertMix = new insertMix();
                     insertMix.InsertSql(take);
-                    Console.WriteLine("Data Inserted!");
+                    //Console.WriteLine("Data Inserted!");
                 }
                 else if (cho == 3)
                 {
                     insertNAV insertNAV = new insertNAV();
                     insertNAV.InsertSql(take);
-                    Console.WriteLine("Data Inserted!");
+                    //Console.WriteLine("Data Inserted!");
                 }
                 else if (cho == 4)
                 {
                     insertInd insertInd = new insertInd();
                     insertInd.InsertSql(take);
-                    Console.WriteLine("Data Inserted!");
+                    //Console.WriteLine("Data Inserted!");
                 }
 
             }
