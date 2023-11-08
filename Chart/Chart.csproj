@@ -89,6 +89,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="cronJob.cs" />
+    <Compile Include="getLinks.cs" />
     <Compile Include="industry.cs" />
     <Compile Include="insert.cs" />
     <Compile Include="MainProgram.cs" />

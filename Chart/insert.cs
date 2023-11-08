@@ -48,7 +48,7 @@ namespace Chart
     {
         public override async Task<List<indusrtyChart>> GetData(string take)
         {
-            var industryReceiver = new DataReceiver<List<indusrtyChart>>(take+"Data/Industries");
+            var industryReceiver = new DataReceiver<List<indusrtyChart>>(take+"/Data/Industries");
             List<indusrtyChart> industryData = await industryReceiver.GetData();
             return industryData;
         }
@@ -65,11 +65,20 @@ namespace Chart
             string query = GetInsertQuery();
             insertInd insertInd = new insertInd();
             List<indusrtyChart> data = insertInd.GetData(take).Result;
-
+            
             foreach (var item in data)
             {
-                await InsertDataAsync(con, query, item);
+                await InsertDataAsync(con, query, item);            
             }
+            /*
+               string insertNameQuery = "INSERT INTO Industries (name) SELECT [Name] FROM siteAttrebute";
+               using (SqlCommand cmd = new SqlCommand(insertNameQuery, con))
+               {
+                 await con.OpenAsync();
+                 await cmd.ExecuteNonQueryAsync();
+                 await con.CloseAsync();
+               }
+            */
         }
     }
     
@@ -78,7 +87,7 @@ namespace Chart
     {
         public override async Task<MixChart> GetData(string take)
         {
-            var MixReceiver = new DataReceiver<MixChart>(take+"Data/MixAsset");
+            var MixReceiver = new DataReceiver<MixChart>(take+"/Data/MixAsset");
             MixChart MixData = await MixReceiver.GetData();
             return MixData;
         }
@@ -106,7 +115,7 @@ namespace Chart
     {
         public override async Task<List<NAVchart>> GetData(string take)
         {
-            var NAVReceiver = new DataReceiver<List<NAVchart>>(take +"Data/NAVPerShare");
+            var NAVReceiver = new DataReceiver<List<NAVchart>>(take +"/Data/NAVPerShare");
             List<NAVchart> NAVData = await NAVReceiver.GetData();
             return NAVData;
         }
@@ -137,7 +146,7 @@ namespace Chart
     {       
         public override async Task<List<PureChart>> GetData(string take)
         {
-            var PureReceiver = new DataReceiver<List<PureChart>>(take +"Data/PureAsset");
+            var PureReceiver = new DataReceiver<List<PureChart>>(take +"/Data/PureAsset");
             List<PureChart> PureData = await PureReceiver.GetData();
             return PureData;
         }

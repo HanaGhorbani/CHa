@@ -36,11 +36,6 @@ namespace Chart
             public string JalaliDate { get; set; }
             public string PurchaseNAVPerShare { get; set; }
         }
-        public class siteattr
-        {
-            public string Name { get; set; }
-            public string Href { get; set; }
-        }
-     
+
     }
 }
