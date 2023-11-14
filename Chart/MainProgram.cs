@@ -15,9 +15,7 @@ namespace Chart
     internal class MainProgram
     {
         public static void Main(string[] args)
-        {
-            var links = new getLinks();
-            links.InsertData();
+        {          
             var task = new Scheduler();
             task.StartCronJob();
            

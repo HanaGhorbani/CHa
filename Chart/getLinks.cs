@@ -6,15 +6,17 @@ using System.Linq;
 using System.Text;
 using System.Net;
 using System.Threading.Tasks;
+using System.Security.Policy;
+
 
 namespace Chart
 {
     internal class getLinks
     {
-        private List<string> hrefValues;
+        private List<string> hrefvalues;
         public void InsertData()
         {
-            hrefValues = new List<string>();
+            hrefvalues = new List<string>();
             string take = "https://rayanhamafza.com/investment-funds.html?version=20231014101826";
             SqlConnection con = new SqlConnection(@"Data Source=HANA;Initial Catalog=ParseSQL;Integrated Security=True");
             string query = "INSERT INTO siteAttrebute (Name, Href) VALUES (@Name, @Href)";
@@ -31,34 +33,43 @@ namespace Chart
                 using (con)
                 {
                     con.Open();
+
                     foreach (HtmlNode linknode in linknodes)
                     {
-                        string href = linknode.GetAttributeValue("href", "");
-                        string content = linknode.InnerText;
-                        if (href == "#")
+                        try
                         {
-                            continue;
+                            string href = linknode.GetAttributeValue("href", "");
+                            hrefvalues.Add(href);
+                            string content = linknode.InnerText;
+                            if (href == "#")
+                            {
+                                continue;
+                            }
+                            byte[] bytes = Encoding.Default.GetBytes(content);
+                            content = Encoding.UTF8.GetString(bytes);
+                            byte[] bytes2 = Encoding.Default.GetBytes(href);
+                            href = Encoding.UTF8.GetString(bytes2);
+
+                            using (SqlCommand cmd = new SqlCommand(query, con))
+                            {
+                                cmd.Parameters.AddWithValue("@Href", href);
+                                cmd.Parameters.AddWithValue("@Name", content);
+                                cmd.ExecuteNonQuery();
+                            }
+                            //hrefvalues.Add(href);
                         }
-                        byte[] bytes = Encoding.Default.GetBytes(content);
-                        content = Encoding.UTF8.GetString(bytes);
-                        byte[] bytes2 = Encoding.Default.GetBytes(href);
-                        href = Encoding.UTF8.GetString(bytes2);
-                        using (SqlCommand cmd = new SqlCommand(query, con))
+                        catch (Exception)
                         {
-                            cmd.Parameters.AddWithValue("@Href", href);
-                            cmd.Parameters.AddWithValue("@Name", content);
-                            cmd.ExecuteNonQuery();
-                        }
-                        hrefValues.Add(href);
+                            
+                        }                      
                     }
                     con.Close();
                 }
-            }       
+            }
         }
-        public List<string> gethrefValues()
+        public List<string> hrefValue()
         {
-            return hrefValues;
+            return hrefvalues;
         }
-
     }
 }

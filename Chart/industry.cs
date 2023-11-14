@@ -9,9 +9,10 @@ namespace Chart
     public class industry
     {
         public class indusrtyChart
-        {
+        {            
             public string name { get; set; }
             public string y { get; set; }
+            public int SiteID { get; set; }
         }
         public class MixChart
         {
@@ -35,6 +36,13 @@ namespace Chart
             public string NAV { get; set; }
             public string JalaliDate { get; set; }
             public string PurchaseNAVPerShare { get; set; }
+        }
+        public class Site
+        {
+            public int ID { get; set; }
+            public string Name { get; set; }
+            public string Href { get; set; }
+           
         }
 
     }
